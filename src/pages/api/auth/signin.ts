@@ -1,7 +1,6 @@
+import type { Provider } from "@supabase/supabase-js";
 import type { APIRoute } from "astro";
 import { supabase } from "../../../utils/libs/supabase";
-import type { Provider } from "@supabase/supabase-js";
-import { SITE_URL } from '@/data/config'
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -15,7 +14,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
       options: {
         redirectTo: import.meta.env.DEV
           ? "http://localhost:4321/api/auth/callback"
-          : `${SITE_URL}/api/auth/callback`,
+          : "https://mygroups.vercel.app/api/auth/callback",
       },
     });
 
