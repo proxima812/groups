@@ -1,1 +1,1 @@
-export const SITE_URL = "https://site.com";
+export const SITE_URL = "https://mygroups.vercel.app/";
