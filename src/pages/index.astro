@@ -1,0 +1,82 @@
+---
+import Base from "../layout/Base.astro"
+export const prerender = true;
+const title = "Supabase and Astro Demo";
+
+const response = await fetch(import.meta.env.SUPABASE_URL + "/rest/v1/group", {
+  headers: {
+    apikey: import.meta.env.SUPABASE_ANON_KEY,
+  },
+});
+const items = await response.json();
+
+interface Props {
+  title: string;
+  description: string;
+  link: string;
+  linkName: string;
+}
+---
+
+<Base title={title}>
+  <main class="z-10 relative">
+    <section class="columns-1 gap-5 md:columns-2 lg:columns-3 xl:columns-4">
+      {
+        items
+          .sort(
+            (a: any, b: any) =>
+              +new Date(b.created_at) - +new Date(a.created_at),
+          )
+          .map((group: any) => {
+            return (
+              <article
+                aria-label={group.title && "Блок информации"}
+                class="mb-5 break-inside-avoid relative bg-center-gradient-light dark:bg-center-gradient-dark p-5 rounded-xl flex flex-col gap-3"
+              >
+              {group.title && <h3 class="text-2xl font-bold max-w-[280px]">{group.title}</h3>}
+
+                <main
+                  class="flex flex-col gap-3 text-sm"
+                  set:html={group.description}
+                />
+
+                <div class="flex justify-between items-center">
+                  {group.link && group.linkName && (
+                    <a
+                      href={group.link}
+                      data-group-link
+                      class="self-start flex items-center gap-1 text-sm bg-blue-500 px-3 py-1 rounded-md text-white"
+                    >
+                      {group.linkName} <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-arrow-right-to-line"
+                      >
+                        <path d="M17 12H3" />
+                        <path d="m11 18 6-6-6-6" />
+                        <path d="M21 5v14" />
+                      </svg>
+                    </a>
+                  )}
+                  <span class="text-xs text-right">
+                    {new Date(group.created_at).toLocaleDateString("ru-RU", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
+                </div>
+              </article>
+            );
+          })
+      }
+    </section>
+  </main>
+</Base>

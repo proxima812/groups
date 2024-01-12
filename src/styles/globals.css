@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CODEX EDITROJS */
+
+.codex-editor__redactor {
+  padding-bottom: 50px !important;
+}
+
+@layer base {
+  ::selection {
+    background: #212121;
+    color: white;
+    text-shadow: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    ::selection {
+      background: #fff;
+      color: black;
+      text-shadow: none;
+    }
+    /* .ce-toolbar__plus {
+      color: white !important;
+    }
+    .ce-toolbar__plus:hover {
+      @apply bg-zinc-800 !important;
+    }
+    .ce-inline-toolbar__toggler-and-button-wrapper {
+      @apply bg-zinc-800 !important;
+    }
+    .ce-inline-tool:hover {
+      @apply bg-zinc-600 !important;
+    }
+    .ce-inline-toolbar {
+      border: 1px solid #323232 !important;
+    }
+    .ce-inline-tool {
+      @apply bg-zinc-800 border-zinc-600 !important;
+    } */
+
+    .ce-block--selected .ce-block__content,
+    .ce-inline-toolbar,
+    .codex-editor--narrow .ce-toolbox,
+    .ce-conversion-toolbar,
+    .ce-settings,
+    .ce-settings__button,
+    .ce-toolbar__settings-btn,
+    .cdx-button,
+    .ce-popover,
+    .ce-toolbar__plus:hover {
+      @apply bg-zinc-700 text-inherit;
+    }
+
+    .ce-inline-tool,
+    .ce-conversion-toolbar__label,
+    .ce-toolbox__button,
+    .cdx-settings-button,
+    .ce-toolbar__plus {
+      @apply text-inherit;
+    }
+
+    .cdx-settings-button:hover,
+    .ce-settings__button:hover,
+    .ce-toolbox__button--active,
+    .ce-toolbox__button:hover,
+    .cdx-button:hover,
+    .ce-inline-toolbar__dropdown:hover,
+    .ce-inline-tool:hover,
+    .ce-popover__item:hover,
+    .ce-toolbar__settings-btn:hover {
+      @apply bg-zinc-800 text-inherit;
+    }
+
+    .cdx-notify--error {
+      @apply bg-red-500 !important;
+    }
+
+    .cdx-notify__cross::after,
+    .cdx-notify__cross::before {
+      @apply bg-white !important;
+    }
+  }
+}

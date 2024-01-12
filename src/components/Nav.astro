@@ -1,0 +1,59 @@
+---
+const { isAuthenticated } = Astro.locals;
+
+import { LogIn, User, UserRoundPlus, Users } from "lucide-react";
+
+import { ModeToggle } from "@/components/ui/ModeToggle";
+
+
+---
+
+
+<nav class="flex justify-between items-center">
+  <a href="/">Astro</a>
+  <div class="flex gap-3">
+    {
+      isAuthenticated && (
+        <a
+          href={Astro.url.pathname == "/dashboard" ? "/" : "/dashboard"}
+          class="h-9 rounded-md px-3 bg-slate-900 text-slate-50 dark:bg-slate-50 dark:text-slate-900 flex gap-2 items-center"
+        >
+          {Astro.url.pathname === "/dashboard" ? (
+            <>
+              <Users className="h-4 w-4" />
+              {"Все группы"}
+            </>
+          ) : (
+            <>
+              <User className="h-4 w-4" />
+              {"Мои группы"}
+            </>
+          )}
+        </a>
+      )
+    }
+    {
+      !isAuthenticated && (
+        <>
+          <a
+            href="/signin"
+            class="h-9 rounded-md px-3 bg-slate-900 text-slate-50 dark:bg-slate-50 dark:text-slate-900 flex gap-2 items-center"
+          >
+            <LogIn className="h-4 w-4" />
+            Войти
+          </a>
+
+          <a
+            href="/register"
+            class="h-9 rounded-md px-3 outline flex gap-2 items-center"
+          >
+          <UserRoundPlus className="h-4 w-4"/>
+            Регистрация
+          </a>
+        </>
+      )
+    }
+
+    <ModeToggle client:load />
+  </div>
+</nav>

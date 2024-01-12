@@ -1,0 +1,26 @@
+---
+import { FormAddGroup } from '@/components/solid/FormAddGroup'
+import { supabase } from "@/utils/libs/supabase"
+import Base from "../layout/Base.astro"
+
+const { email } = Astro.locals;
+const { data } = await supabase.from("group").select("*")
+---
+
+
+<Base title="Dashboard" description=''>
+  <section class="max-w-3xl w-full mx-auto flex flex-col items-center gap-2">
+    <div class="flex self-end gap-3 mb-3">
+      <p
+        class="dark:bg-white dark:text-black bg-zinc-900 px-3 py-1 rounded-md text-white font-medium"
+      >
+        {email}
+      </p>
+      <a
+        href="/api/auth/signout"
+        class="bg-red-500 text-white font-medium px-3 py-1 rounded-md">Выйти</a
+      >
+    </div>
+    <FormAddGroup reviews={data} client:only="solid" />
+  </section>
+</Base>
